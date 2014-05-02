@@ -1,6 +1,5 @@
 __author__ = 'Craig Cuninghame'
-##To Do:
-##1) I need to check if the added backslash to the filename only works in windows, or if it works on all OS's
+
 
 import os
 
@@ -39,8 +38,15 @@ def add_text_end():
         length = len(file_name)
         #source = file_path + "\\" + file_name
         source = os.path.join(file_path, file_name)
-        file_name_no_ext = file_name[0:length - 4] #removes the extension
-        destination = os.path.join(file_path, file_name_no_ext + " " + text_input + file_name[-4:]) #-4 is the extension
+        extension_length = 0
+        for x in file_name:
+            if x == ".":
+                break
+            else:
+                extension_length += 1
+        extension_length =  length - extension_length
+        file_name_no_ext = file_name[0:length - extension_length] #removes the extension
+        destination = os.path.join(file_path, file_name_no_ext + " " + text_input + file_name[-extension_length:]) #-4 is the extension
         os.rename(source, destination)
 
 #Function to replace a block of text with another
@@ -83,3 +89,4 @@ print "\n\n"
 for item in os.listdir(file_path):
     print item
 print "\n\nComplete"
+
