@@ -58,8 +58,10 @@ def remove_text_wildcard():
     #add regex in to string
     pattern = re.compile(text_input)
     for file_name in os.listdir(file_path):
-        if re.search(pattern, file_name):
-            print(file_name)
+        if re.search(pattern, file_name) in file_name:
+            destination = os.path.join(file_path, file_name.replace(xxxxxxxx, "")
+            source = os.path.join(file_path, file_name)
+            os.rename(source, destination)
 
 
 
