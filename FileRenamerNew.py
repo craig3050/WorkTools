@@ -12,9 +12,9 @@ def text_modify(file_path):
         text_removal_edit = change_to_regex_format(text_removal)
         text_removal_edit = regex_match(text_removal_edit, file_name)
         print (text_removal_edit)
-        if text_removal_edit == 0:
+        if text_removal_edit == None:
             print("no change")
-        if text_removal_edit in file_name:
+        elif text_removal_edit in file_name:
             new_file_name = file_name.replace(text_removal_edit, text_replace)
             file_rename(file_path, file_name, new_file_name)
 
@@ -23,21 +23,20 @@ def change_to_regex_format(input_string):
     output_string = ""
     for letter in input_string:
         if letter == "*":
-            output_string += "[\w\W]"
-        if letter == "(":
-            output_string += "("
-        if letter == ")":
-            output_string += ")"
+            output_string += "[.]"
+        elif letter == "(":
+            output_string += "r'('"
+        elif letter == ")":
+            output_string += "r')'"
         else:
             output_string += letter
     return output_string
 
 def regex_match(input_string, comparison_string):
     match_string = re.compile(input_string)
-    print (match_string)
     return_string = match_string.search(comparison_string)
     if return_string == None:
-        return 0
+        return None
     else:
         return return_string.group()
 
